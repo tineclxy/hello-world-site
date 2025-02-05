@@ -3,52 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Change Shirt Color</title>
+    <title>The Wacky Banana Site</title>
     <style>
         body {
+            font-family: 'Comic Sans MS', cursive;
+            background-color: #fff3b0;
             text-align: center;
-            font-family: Arial, sans-serif;
         }
-        #character {
-            width: 200px;
-            margin: 20px;
-        }
-        .color-btn {
-            padding: 10px 20px;
-            margin: 5px;
-            border: none;
+        
+        #banana {
+            animation: dance 2s infinite;
+            font-size: 100px;
             cursor: pointer;
-            color: white;
-            font-size: 16px;
         }
-        .red { background-color: red; }
-        .blue { background-color: blue; }
-        .green { background-color: green; }
+
+        .joke {
+            margin: 20px;
+            padding: 15px;
+            background-color: #ffec80;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        @keyframes dance {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(15deg); }
+            50% { transform: rotate(-15deg); }
+            75% { transform: rotate(5deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #ffdd00;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        button:hover {
+            background-color: #ffd700;
+        }
     </style>
 </head>
 <body>
-    <h1>Change the Shirt Color</h1>
-    <svg id="character" viewBox="0 0 200 200">
-        <!-- Head -->
-        <circle cx="100" cy="50" r="30" fill="peachpuff" />
-        <!-- Shirt -->
-        <rect id="shirt" x="60" y="80" width="80" height="80" fill="blue" />
-        <!-- Arms -->
-        <rect x="40" y="90" width="20" height="60" fill="peachpuff" />
-        <rect x="140" y="90" width="20" height="60" fill="peachpuff" />
-        <!-- Legs -->
-        <rect x="80" y="160" width="20" height="40" fill="black" />
-        <rect x="100" y="160" width="20" height="40" fill="black" />
-    </svg>
+    <h1>Welcome to the Banana Zone! 🎉</h1>
+    <div id="banana" onclick="bananaClick()">🍌</div>
+    
+    <div class="joke">
+        <h2>Why did the banana go to the doctor?</h2>
+        <p>Because it wasn't peeling well!</p>
+    </div>
 
-    <button class="color-btn red" onclick="changeColor('red')">Red</button>
-    <button class="color-btn blue" onclick="changeColor('blue')">Blue</button>
-    <button class="color-btn green" onclick="changeColor('green')">Green</button>
+    <button onclick="tellJoke()">Get Random Joke</button>
 
     <script>
-        function changeColor(color) {
-            document.getElementById('shirt').setAttribute('fill', color);
+        const jokes = [
+            { q: "What do you call a fake noodle?", a: "An impasta!" },
+            { q: "Why did the scarecrow win an award?", a: "Because he was outstanding in his field!" },
+            { q: "What do you call a bear with no teeth?", a: "A gummy bear!" },
+            { q: "Why don't eggs tell jokes?", a: "They'd crack up!" }
+        ];
+
+        function bananaClick() {
+            alert("🎵 I'm a dancing banana! 🎵");
+            document.getElementById("banana").style.animation = "none";
+            setTimeout(() => {
+                document.getElementById("banana").style.animation = "dance 2s infinite";
+            }, 10);
         }
+
+        function tellJoke() {
+            const randomJoke = jokes[Math.floor(Math.random() * jokes.length)];
+            alert(`${randomJoke.q}\n\n${randomJoke.a}`);
+        }
+
+        // Random banana color change every 5 seconds
+        setInterval(() => {
+            const colors = ['#ffdd00', '#ffaa00', '#ffff00'];
+            document.body.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        }, 5000);
     </script>
 </body>
 </html>
