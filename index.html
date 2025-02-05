@@ -3,88 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Wacky Banana Site</title>
+    <title>Cute Car Color and Movement</title>
     <style>
         body {
-            font-family: 'Comic Sans MS', cursive;
-            background-color: #fff3b0;
+            font-family: Arial, sans-serif;
             text-align: center;
-        }
-        
-        #banana {
-            animation: dance 2s infinite;
-            font-size: 100px;
-            cursor: pointer;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
         }
 
-        .joke {
-            margin: 20px;
-            padding: 15px;
-            background-color: #ffec80;
+        h1 {
+            color: #333;
+            font-size: 2.5em;
+            margin-top: 20px;
+        }
+
+        #carContainer {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            margin-top: 50px;
+        }
+
+        #car {
+            width: 100px;
+            height: 50px;
+            background-color: red;
             border-radius: 10px;
-            display: inline-block;
-        }
-
-        @keyframes dance {
-            0% { transform: rotate(0deg); }
-            25% { transform: rotate(15deg); }
-            50% { transform: rotate(-15deg); }
-            75% { transform: rotate(5deg); }
-            100% { transform: rotate(0deg); }
+            position: absolute;
+            bottom: 0;
+            left: 50px;
         }
 
         button {
+            margin-top: 20px;
             padding: 10px 20px;
-            font-size: 18px;
-            background-color: #ffdd00;
+            font-size: 1.2em;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
             border: none;
             border-radius: 5px;
-            cursor: pointer;
-            margin: 10px;
         }
 
         button:hover {
-            background-color: #ffd700;
+            background-color: #45a049;
         }
     </style>
 </head>
 <body>
-    <h1>Welcome to the penguin Zone! 🎉</h1>
-    <div id="banana" onclick="bananaClick()">🐧</div>
-    
-    <div class="joke">
-        <h2>Why did the banana go to the doctor?</h2>
-        <p>Because it wasn't peeling well!</p>
+    <h1>Welcome to the Cute Car Website!</h1>
+    <div id="carContainer">
+        <div id="car"></div>
     </div>
-
-    <button onclick="tellJoke()">Get Random Joke</button>
+    <button id="colorButton">Change Car Color</button>
+    <button id="moveButton">Move the Car</button>
 
     <script>
-        const jokes = [
-            { q: "What do you call a fake noodle?", a: "An impasta!" },
-            { q: "Why did the scarecrow win an award?", a: "Because he was outstanding in his field!" },
-            { q: "What do you call a bear with no teeth?", a: "A gummy bear!" },
-            { q: "Why don't eggs tell jokes?", a: "They'd crack up!" }
-        ];
+        const colors = ["red", "blue", "green", "yellow", "purple", "orange"];
+        let currentPosition = 50;
+        let moving = false;
 
-        function bananaClick() {
-            alert("🎵 I'm a dancing banana! 🎵");
-            document.getElementById("banana").style.animation = "none";
-            setTimeout(() => {
-                document.getElementById("banana").style.animation = "dance 2s infinite";
-            }, 10);
+        document.getElementById("colorButton").addEventListener("click", function() {
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            document.getElementById("car").style.backgroundColor = randomColor;
+        });
+
+        document.getElementById("moveButton").addEventListener("click", function() {
+            if (moving) return;  // Prevent multiple moves at once
+            moving = true;
+            moveCar();
+        });
+
+        function moveCar() {
+            let car = document.getElementById("car");
+            let carElement = car;
+            let moveInterval = setInterval(function() {
+                if (currentPosition >= window.innerWidth - 150) {
+                    clearInterval(moveInterval);
+                    moving = false;
+                    currentPosition = 50;
+                    carElement.style.left = currentPosition + 'px';  // Reset position
+                } else {
+                    currentPosition += 5;  // Move car 5px at a time
+                    carElement.style.left = currentPosition + 'px';
+                }
+            }, 10);  // Move every 10ms
         }
-
-        function tellJoke() {
-            const randomJoke = jokes[Math.floor(Math.random() * jokes.length)];
-            alert(`${randomJoke.q}\n\n${randomJoke.a}`);
-        }
-
-        // Random banana color change every 5 seconds
-        setInterval(() => {
-            const colors = ['#ffdd00', '#ffaa00', '#ffff00'];
-            document.body.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-        }, 5000);
     </script>
 </body>
 </html>
