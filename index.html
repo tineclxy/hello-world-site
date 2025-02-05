@@ -1,16 +1,54 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Hello World</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Shirt Color</title>
     <style>
         body {
-            background-color: purple;
             text-align: center;
             font-family: Arial, sans-serif;
         }
+        #character {
+            width: 200px;
+            margin: 20px;
+        }
+        .color-btn {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            cursor: pointer;
+            color: white;
+            font-size: 16px;
+        }
+        .red { background-color: red; }
+        .blue { background-color: blue; }
+        .green { background-color: green; }
     </style>
 </head>
 <body>
-    <h1>Hello World</h1>
+    <h1>Change the Shirt Color</h1>
+    <svg id="character" viewBox="0 0 200 200">
+        <!-- Head -->
+        <circle cx="100" cy="50" r="30" fill="peachpuff" />
+        <!-- Shirt -->
+        <rect id="shirt" x="60" y="80" width="80" height="80" fill="blue" />
+        <!-- Arms -->
+        <rect x="40" y="90" width="20" height="60" fill="peachpuff" />
+        <rect x="140" y="90" width="20" height="60" fill="peachpuff" />
+        <!-- Legs -->
+        <rect x="80" y="160" width="20" height="40" fill="black" />
+        <rect x="100" y="160" width="20" height="40" fill="black" />
+    </svg>
+
+    <button class="color-btn red" onclick="changeColor('red')">Red</button>
+    <button class="color-btn blue" onclick="changeColor('blue')">Blue</button>
+    <button class="color-btn green" onclick="changeColor('green')">Green</button>
+
+    <script>
+        function changeColor(color) {
+            document.getElementById('shirt').setAttribute('fill', color);
+        }
+    </script>
 </body>
 </html>
