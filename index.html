@@ -3,75 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cute Car Animation</title>
+    <title>Interactive Welcome Page</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: grey;
-            overflow: hidden;
+            background: #f3f4f6;
+            text-align: center;
         }
 
-        #carContainer {
-            position: relative;
-            width: 200px;
-            height: 100px;
-            background-color: #f00; /* You can change the color via GitHub */
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            font-size: 2.5em;
+        }
+
+        .content {
+            margin: 50px;
+        }
+
+        .card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-open {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-open:hover {
+            background-color: #45a049;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 20px;
             border-radius: 10px;
+            width: 80%;
+            max-width: 500px;
         }
 
-        #car {
-            position: absolute;
-            top: 25px;
-            left: 50px;
-            width: 100px;
-            height: 50px;
-            background-color: inherit; /* Inherited color from container */
-            border-radius: 10px;
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
         }
 
-        .tire {
-            position: absolute;
-            bottom: -15px;
-            width: 30px;
-            height: 30px;
-            background-color: #333;
-            border-radius: 50%;
-            animation: rotateTire 1s linear infinite;
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
         }
-
-        .tire.left {
-            left: 10px;
-        }
-
-        .tire.right {
-            right: 10px;
-        }
-
-        /* Tire rotation animation */
-        @keyframes rotateTire {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
     </style>
 </head>
 <body>
 
-    <div id="carContainer">
-        <div id="car"></div>
-        <div class="tire left"></div>
-        <div class="tire right"></div>
+    <header>Welcome to Our Interactive Page</header>
+
+    <div class="content">
+        <div class="card" onclick="openModal()">
+            <h2>Click to Learn More!</h2>
+            <p>Click this card to see more information in the modal.</p>
+        </div>
+        <button class="btn-open" onclick="openModal()">Open Modal</button>
     </div>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Welcome to Our Website!</h2>
+            <p>This is an interactive page where you can learn more about what we offer. Feel free to explore!</p>
+        </div>
+    </div>
+
+    <script>
+        // Get the modal
+        var modal = document.getElementById("myModal");
+
+        // Get the button that opens the modal
+        var btn = document.querySelector(".btn-open");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal
+        function openModal() {
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        function closeModal() {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
 
 </body>
 </html>
