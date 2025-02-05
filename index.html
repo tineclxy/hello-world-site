@@ -3,94 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cute Car Color and Movement</title>
+    <title>Cute Car Animation</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f4f4f4;
             margin: 0;
             padding: 0;
-        }
-
-        h1 {
-            color: #333;
-            font-size: 2.5em;
-            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            overflow: hidden;
         }
 
         #carContainer {
             position: relative;
-            width: 100%;
-            height: 300px;
-            margin-top: 50px;
+            width: 200px;
+            height: 100px;
+            background-color: #f00; /* You can change the color via GitHub */
+            border-radius: 10px;
         }
 
         #car {
+            position: absolute;
+            top: 25px;
+            left: 50px;
             width: 100px;
             height: 50px;
-            background-color: red;
+            background-color: inherit; /* Inherited color from container */
             border-radius: 10px;
+        }
+
+        .tire {
             position: absolute;
-            bottom: 0;
-            left: 50px;
+            bottom: -10px;
+            width: 30px;
+            height: 30px;
+            background-color: #333;
+            border-radius: 50%;
+            animation: rotateTire 1s linear infinite;
         }
 
-        button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 1.2em;
-            cursor: pointer;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
+        .tire.left {
+            left: 10px;
         }
 
-        button:hover {
-            background-color: #45a049;
+        .tire.right {
+            right: 10px;
         }
+
+        /* Tire rotation animation */
+        @keyframes rotateTire {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
     </style>
 </head>
 <body>
-    <h1>Welcome to the Cute Car Website!</h1>
+
     <div id="carContainer">
         <div id="car"></div>
+        <div class="tire left"></div>
+        <div class="tire right"></div>
     </div>
-    <button id="colorButton">Change Car Color</button>
-    <button id="moveButton">Move the Car</button>
 
-    <script>
-        const colors = ["red", "blue", "green", "yellow", "purple", "orange"];
-        let currentPosition = 50;
-        let moving = false;
-
-        document.getElementById("colorButton").addEventListener("click", function() {
-            const randomColor = colors[Math.floor(Math.random() * colors.length)];
-            document.getElementById("car").style.backgroundColor = randomColor;
-        });
-
-        document.getElementById("moveButton").addEventListener("click", function() {
-            if (moving) return;  // Prevent multiple moves at once
-            moving = true;
-            moveCar();
-        });
-
-        function moveCar() {
-            let car = document.getElementById("car");
-            let carElement = car;
-            let moveInterval = setInterval(function() {
-                if (currentPosition >= window.innerWidth - 150) {
-                    clearInterval(moveInterval);
-                    moving = false;
-                    currentPosition = 50;
-                    carElement.style.left = currentPosition + 'px';  // Reset position
-                } else {
-                    currentPosition += 5;  // Move car 5px at a time
-                    carElement.style.left = currentPosition + 'px';
-                }
-            }, 10);  // Move every 10ms
-        }
-    </script>
 </body>
 </html>
