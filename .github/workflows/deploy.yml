@@ -17,13 +17,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Install Python
-        run: sudo apt-get install -y python3 python3-pip
+      - name: Install HTMLHint
+        run: npm install -g htmlhint  # Install HTMLHint for validation
 
       - name: Run HTML Validation
-        uses: cyb3r-jak3/html5validator-action@v1.0.3
-        with:
-          root: .  # Scans all HTML files in the repo
+        run: htmlhint "**/*.html"  # Scan all HTML files
 
   deploy:
     runs-on: ubuntu-latest
@@ -40,4 +38,5 @@ jobs:
         with:
           branch: gh-pages
           folder: .  # Deploy the root folder
+
 
