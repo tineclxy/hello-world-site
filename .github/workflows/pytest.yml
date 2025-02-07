@@ -32,3 +32,9 @@ jobs:
 
       - name: Run Pytest
         run: pytest test_file.py --tb=short --disable-warnings
+
+      - name: Debug Info
+        run: |
+          echo "Python version: $(python --version)"
+          echo "Installed packages:"
+          pip freeze
