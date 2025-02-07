@@ -10,10 +10,10 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04  # Explicitly set to Ubuntu 22.04 for stability
     strategy:
       matrix:
-        python-version: [3.8, 3.9, 3.10]  # Removed invalid Python 3.1
+        python-version: [3.8, 3.9, 3.10]
 
     steps:
       - name: Checkout repository
@@ -32,4 +32,4 @@ jobs:
 
       - name: Run Pytest
         run: |
-          pytest test_file.py --tb=short --disable-warnings  # Run tests with concise output
+          pytest test_file.py --tb=short --disable-warnings
