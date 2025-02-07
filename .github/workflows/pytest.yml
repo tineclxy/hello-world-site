@@ -10,10 +10,10 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-22.04  # Explicitly set for stability
     strategy:
       matrix:
-        python-version: [3.8, 3.9, 3.10]  # Ensure 3.1 is removed
+        python-version: [3.8, 3.9, 3.10]  # Remove any reference to "3.1"
 
     steps:
       - name: Checkout repository
@@ -31,4 +31,5 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: Run Pytest
-        run: pytest test_file.py --tb=short --disable-warnings
+        run: |
+          pytest test_file.py --tb=short --disable-warnings
