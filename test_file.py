@@ -1,42 +1,46 @@
+import time
 from selenium import webdriver
-from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
-import time
-import tempfile
+from selenium.webdriver.common.by import By
+import pytest
 
-BASE_URL = "https://tineclxy.github.io/hello-world-site/"  # The URL of your site
-
-def test_snowflake_falling():
-    """Test if the snowflakes are falling and their element exists."""
-    
-    # Set up Chrome options
+# Setup WebDriver
+@pytest.fixture
+def driver():
     options = Options()
-    # Use a temporary directory for user data (this ensures a unique session every time)
-    options.add_argument(f"user-data-dir={tempfile.mkdtemp()}")
+    # Uncomment for headless mode
+    # options.add_argument("--headless")
     
-    # Set up the WebDriver (Chrome in this case)
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
-    
-    try:
-        # Navigate to the page
-        driver.get(BASE_URL)
-        
-        # Wait for the page to load and snowflakes to appear (adjust time if needed)
-        time.sleep(5)  # 5 seconds wait time for JavaScript to load
-        
-        # Check if the snowflakes element exists
-        try:
-            snowflake = driver.find_element(By.CLASS_NAME, "snowflake")
-            assert snowflake is not None, "Snowflakes element not found"
-            print("Snowflakes element found!")
-        except Exception as e:
-            assert False, "Snowflakes element not found"
-    
-    finally:
-        # Quit the driver after the test is complete
-        driver.quit()
+    yield driver
+    driver.quit()
 
-# Run the test
-test_snowflake_falling()
+# Test to check the penguin wobble animation
+def test_penguin_wobble(driver):
+    driver.get("file:///" + "/path/to/your/index.html")  # Replace with actual file path
+    penguin = driver.find_element(By.ID, "penguin")
+    
+    # Click on penguin and test wobble
+    penguin.click()
+    
+    # Wait for the animation to complete
+    time.sleep(3)
+    
+    # Check if penguin is in wobble position (rotate is applied)
+    assert penguin.value_of_css_property('transform') != 'matrix(1, 0, 0, 1, 0, 0)'  # Not the default transform matrix
+
+# Test to check snowflakes
+def test_snowflake_creation(driver):
+    driver.get("file:///" + "/path/to/your/index.html")  # Replace with actual file path
+    
+    initial_snowflakes = len(driver.find_elements(By.CLASS_NAME, "snowflake"))
+    
+    # Wait a bit to allow snowflakes to appear
+    time.sleep(5)
+    
+    new_snowflakes = len(driver.find_elements(By.CLASS_NAME, "snowflake"))
+    
+    # Ensure that new snowflakes were created
+    assert new_snowflakes > initial_snowflakes
