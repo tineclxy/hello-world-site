@@ -127,19 +127,6 @@
             }, 200);
         }
 
-        // Random snowflake fall
-        setInterval(() => {
-            const snowflake = document.createElement('div');
-            snowflake.innerHTML = '❄️';
-            snowflake.classList.add('snowflake');
-            snowflake.style.left = Math.random() * window.innerWidth + 'px';
-            snowflake.style.fontSize = Math.random() * 40 + 30 + 'px';
-            
-            document.body.appendChild(snowflake);
-
-            setTimeout(() => snowflake.remove(), 7000);
-        }, 500);
-
         // Function to generate a random bright background color
         function randomBackgroundColor() {
             const randomColor = `hsl(${Math.random() * 360}, 80%, 90%)`;
