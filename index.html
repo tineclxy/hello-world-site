@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -90,6 +90,7 @@
     </style>
 </head>
 <body>
+    <div class="container">
         <h1 style="font-size: 2.8rem;">Welcome to the Penguin Party! ❄️</h1>
         <div id="penguin" onclick="penguinWobble()">🐧</div>
         
@@ -115,7 +116,7 @@
         // Function to make the penguin wobble
         function penguinWobble() {
             const penguin = document.getElementById('penguin');
-            penguin.style.animation = 
+            penguin.style.animation = 'none';
             penguin.style.transform = 'rotate(15deg)';
             setTimeout(() => {
                 penguin.style.transform = 'rotate(-15deg)';
@@ -125,6 +126,19 @@
                 }, 200);
             }, 200);
         }
+
+        // Random snowflake fall
+        setInterval(() => {
+            const snowflake = document.createElement('div');
+            snowflake.innerHTML = '❄️';
+            snowflake.classList.add('snowflake');
+            snowflake.style.left = Math.random() * window.innerWidth + 'px';
+            snowflake.style.fontSize = Math.random() * 40 + 30 + 'px';
+            
+            document.body.appendChild(snowflake);
+
+            setTimeout(() => snowflake.remove(), 7000);
+        }, 500);
 
         // Function to generate a random bright background color
         function randomBackgroundColor() {
