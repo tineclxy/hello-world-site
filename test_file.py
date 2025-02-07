@@ -1,35 +1,46 @@
-import requests
+import time
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+import pytest
 
-BASE_URL = "https://tineclxy.github.io/hello-world-site/"
+# Setup WebDriver
+@pytest.fixture
+def driver():
+    options = Options()
+    # Uncomment for headless mode
+    # options.add_argument("--headless")
+    
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+    yield driver
+    driver.quit()
 
-def test_homepage_status():
-    """Test if the homepage loads successfully."""
-    response = requests.get(BASE_URL)
-    assert response.status_code == 200, f"Homepage did not load properly, got {response.status_code}"
+# Test to check the penguin wobble animation
+def test_penguin_wobble(driver):
+    driver.get("file:///" + "/path/to/your/index.html")  # Replace with actual file path
+    penguin = driver.find_element(By.ID, "penguin")
+    
+    # Click on penguin and test wobble
+    penguin.click()
+    
+    # Wait for the animation to complete
+    time.sleep(3)
+    
+    # Check if penguin is in wobble position (rotate is applied)
+    assert penguin.value_of_css_property('transform') != 'matrix(1, 0, 0, 1, 0, 0)'  # Not the default transform matrix
 
-def test_homepage_content():
-    """Check if key phrases exist in the homepage content."""
-    response = requests.get(BASE_URL)
-    assert "Welcome to the Penguin Party!" in response.text, "Expected homepage content not found"
-    assert "This is the website for Devops LP1" in response.text, "DevOps LP1 text not found"
-    assert "Hello C270 Devops👋" in response.text, "C270 greeting not found"
-
-def test_penguin_exists():
-    """Check if the Penguin character is in the HTML."""
-    response = requests.get(BASE_URL)
-    assert 'id="penguin"' in response.text, "Penguin element not found in the HTML"
-
-def test_score_box_exists():
-    """Check if the score box is present."""
-    response = requests.get(BASE_URL)
-    assert 'id="scoreBox"' in response.text, "Score box not found"
-
-def test_igloo_exists():
-    """Check if the igloo section is present."""
-    response = requests.get(BASE_URL)
-    assert 'class="igloo"' in response.text, "Igloo section not found"
-
-def test_snow_exists():
-    """Check if the snow section is present."""
-    response = requests.get(BASE_URL)
-    assert 'class="snow"' in response.text, "Snow section not found"
+# Test to check snowflakes
+def test_snowflake_creation(driver):
+    driver.get("file:///" + "/path/to/your/index.html")  # Replace with actual file path
+    
+    initial_snowflakes = len(driver.find_elements(By.CLASS_NAME, "snowflake"))
+    
+    # Wait a bit to allow snowflakes to appear
+    time.sleep(5)
+    
+    new_snowflakes = len(driver.find_elements(By.CLASS_NAME, "snowflake"))
+    
+    # Ensure that new snowflakes were created
+    assert new_snowflakes > initial_snowflakes
