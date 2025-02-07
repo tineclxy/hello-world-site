@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -90,7 +90,6 @@
     </style>
 </head>
 <body>
-    <div class="container">
         <h1 style="font-size: 2.8rem;">Welcome to the Penguin Party! ❄️</h1>
         <div id="penguin" onclick="penguinWobble()">🐧</div>
         
@@ -116,7 +115,7 @@
         // Function to make the penguin wobble
         function penguinWobble() {
             const penguin = document.getElementById('penguin');
-            penguin.style.animation = 'none';
+            penguin.style.animation = 
             penguin.style.transform = 'rotate(15deg)';
             setTimeout(() => {
                 penguin.style.transform = 'rotate(-15deg)';
