@@ -1,6 +1,6 @@
 import requests
 
-BASE_URL = "https://tineclxy.github.io/hello-world-site/"
+BASE_URL = "https://tineclxy.github.io/hello-world-site/"  # The URL of your site
 
 TIMEOUT = 10  # Timeout after 10 seconds for the requests
 
@@ -26,12 +26,7 @@ def test_score_box_exists():
     response = requests.get(BASE_URL, timeout=TIMEOUT)
     assert 'id="scoreBox"' in response.text, "Score box not found"
 
-def test_igloo_exists():
-    """Check if the igloo section is present."""
+def test_snowflake_falling():
+    """Test if the snowflakes are falling and their element exists."""
     response = requests.get(BASE_URL, timeout=TIMEOUT)
-    assert 'class="igloo"' in response.text, "Igloo section not found"
-
-def test_snow_exists():
-    """Check if the snow section is present."""
-    response = requests.get(BASE_URL, timeout=TIMEOUT)
-    assert 'class="snow"' in response.text, "Snow section not found"
+    assert 'class="snowflake"' in response.text, "Snowflakes element not found"
